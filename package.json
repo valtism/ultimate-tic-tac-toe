@@ -3,17 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
+    "nodemon": "^2.0.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
+    "tailwindcss": "^2.0.3",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm run watch:tailwind & react-scripts start",
+    "build": "NODE_ENV=production npm run tailwind && react-scripts build",
+    "tailwind": "tailwind build src/tailwind.src.css -o src/tailwind.css",
+    "watch:tailwind": "nodemon -w tailwind.config.js -w src/tailwind.src.css -x 'npm run tailwind'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
