@@ -2,7 +2,7 @@
   "name": "ultimate-tic-tac-toe",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://valtism.com",
+  "homepage": "https://valtism.com/ultimate-tic-tac-toe",
   "dependencies": {
     "clsx": "^1.1.1",
     "gh-pages": "^3.1.0",
