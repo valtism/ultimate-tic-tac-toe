@@ -14,8 +14,8 @@
   "scripts": {
     "start": "npm run watch:tailwind & react-scripts start",
     "build": "NODE_ENV=production npm run tailwind && react-scripts build",
-    "tailwind": "tailwind build src/tailwind.src.css -o src/tailwind.css",
-    "watch:tailwind": "nodemon -w tailwind.config.js -w src/tailwind.src.css -x 'npm run tailwind'",
+    "tailwind": "tailwind build src/styles/tailwind.src.css -o src/styles/tailwind.css",
+    "watch:tailwind": "nodemon -w tailwind.config.js -w src/styles/tailwind.src.css -x 'npm run tailwind'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

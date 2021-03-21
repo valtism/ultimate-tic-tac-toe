@@ -10,11 +10,13 @@ import {
 } from "../functions/gameFunctions";
 
 function App() {
+  // State
   const [turns, setTurns] = useState([]);
   const [pointer, setPointer] = useState(0);
 
+  // Derived State
   const turnsSlice = turns.slice(0, pointer);
-  const p1Turn = turns.length % 2 === 0;
+  const p1Turn = turnsSlice.length % 2 === 0;
   const allowedBoard = getAllowedBoard(turnsSlice);
   const winner = getWinner(turnsSlice);
 
