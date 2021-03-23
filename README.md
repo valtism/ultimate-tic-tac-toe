@@ -2,6 +2,7 @@
 
 Todo:
 
-- [ ] Resizable board
+- [x] Resizable board
+- [ ] Small / mobile support
 - [ ] Dark mode
 - [ ] Multiplayer

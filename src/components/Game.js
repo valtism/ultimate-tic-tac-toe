@@ -10,7 +10,7 @@ export function Game({ turns, cellClick, allowedBoard }) {
   return (
     <div
       className={clsx(
-        "relative inline-grid grid-cols-3 rounded gap-2",
+        "h-full relative grid grid-cols-3 rounded gap-2",
         allowedBoard === true && "ring-8 ring-yellow-300 ring-opacity-50"
       )}
     >
@@ -34,7 +34,7 @@ function Board({ turns, cellClick, allowedBoard, boardIndex }) {
   return (
     <div
       className={clsx(
-        "relative inline-grid grid-cols-3 rounded gap-1",
+        "relative grid grid-cols-3 rounded gap-1",
         allowedBoard === boardIndex && "ring-8 ring-yellow-300 ring-opacity-50"
       )}
     >
@@ -44,25 +44,39 @@ function Board({ turns, cellClick, allowedBoard, boardIndex }) {
           const cellId = getCellId(boardIndex, cellIndex);
           const iconType = cellIconType(turns, cellId);
           return (
-            <Cell key={cellIndex} onClick={() => cellClick(cellId)}>
-              <Icon type={iconType} className="w-6 h-6 text-gray-900" />
+            <Cell
+              key={cellIndex}
+              onClick={() => cellClick(cellId)}
+              style={{ filter: boardWinner && "blur(2px)" }}
+              className={clsx(
+                boardWinner === "X" && "bg-red-300",
+                boardWinner === "O" && "bg-blue-300"
+              )}
+            >
+              <Icon
+                type={iconType}
+                className="absolute w-10/12 h-10/12 text-gray-900"
+              />
             </Cell>
           );
         })}
-      {boardWinner && (
+      {/* {boardWinner && (
         <Icon
           type={boardWinner}
           className="absolute w-full h-full rounded text-gray-900 bg-gray-900 bg-opacity-30"
         />
-      )}
+      )} */}
     </div>
   );
 }
 
-function Cell({ children, ...props }) {
+function Cell({ children, className, ...props }) {
   return (
     <div
-      className="flex items-center justify-center rounded w-8 h-8 bg-gray-200"
+      className={clsx(
+        "relative flex items-center justify-center rounded w-full h-full bg-gray-200",
+        className
+      )}
       {...props}
     >
       {children}

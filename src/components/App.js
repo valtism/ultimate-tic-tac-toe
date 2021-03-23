@@ -1,42 +1,58 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import "react-resizable/css/styles.css";
 
 import { Game } from "./Game";
-import { usePointerKeys } from "../hooks/usePointerKeys";
+import { usePointerKeys as useViewTurnKeys } from "../hooks/usePointerKeys";
 import { Icon } from "./Icon";
 import {
   getAllowedBoard,
   getWinner,
   isValidClick,
 } from "../functions/gameFunctions";
+import { ResizableBox } from "react-resizable";
 
 function App() {
-  // State
+  // Game State
   const [turns, setTurns] = useState([]);
-  const [pointer, setPointer] = useState(0);
+  const [viewTurn, setViewTurn] = useState(0);
 
-  // Derived State
-  const turnsSlice = turns.slice(0, pointer);
+  // Derived Game State
+  const turnsSlice = turns.slice(0, viewTurn);
   const p1Turn = turnsSlice.length % 2 === 0;
   const allowedBoard = getAllowedBoard(turnsSlice);
   const winner = getWinner(turnsSlice);
 
   function cellClick(cellId) {
-    if (isValidClick(pointer, turns, cellId, allowedBoard)) {
+    if (isValidClick(viewTurn, turns, cellId, allowedBoard)) {
       const newTurns = turns.concat(cellId);
       setTurns(newTurns);
-      setPointer(newTurns.length);
+      setViewTurn(newTurns.length);
     }
   }
 
-  usePointerKeys(turns, setPointer);
+  useViewTurnKeys(turns, setViewTurn);
+
+  // Use this to avoid strictMode warning when using ResizableBox
+  const gameRef = useRef(null);
 
   return (
     <div className="flex justify-center mt-4">
-      <Game
-        turns={turnsSlice}
-        cellClick={cellClick}
-        allowedBoard={allowedBoard}
-      />
+      <ResizableBox
+        height={300}
+        width={300}
+        minConstraints={[200, 200]}
+        lockAspectRatio
+        draggableOpts={{ nodeRef: gameRef }}
+        className="p-2"
+      >
+        <div ref={gameRef} className="w-full h-full">
+          <Game
+            turns={turnsSlice}
+            cellClick={cellClick}
+            allowedBoard={allowedBoard}
+          />
+        </div>
+      </ResizableBox>
       <Sidebar winner={winner} p1Turn={p1Turn} />
     </div>
   );
