@@ -8,6 +8,9 @@ module.exports = {
       colors: {
         gray: colors.warmGray,
       },
+      fontFamily: {
+        display: "YoungSerif",
+      },
     },
   },
   variants: {

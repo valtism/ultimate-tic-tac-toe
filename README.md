@@ -7,5 +7,7 @@ Todo:
 - [x] Small / mobile support
 - [x] Dark mode
 - [ ] Animated marks
-- [ ] Better font
+- [ ] Play instructions
+- [ ] Arrow keys
+- [x] Better font
 - [ ] Multiplayer

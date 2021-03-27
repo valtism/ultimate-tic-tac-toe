@@ -38,7 +38,7 @@ export default function App() {
   return (
     <DarkContext.Provider value={dark}>
       <div className="bg-white dark:bg-gray-900 flex flex-col items-center space-y-2">
-        <h1 className="text-xl font-medium mt-4 text-gray-900 dark:text-white">
+        <h1 className="font-display text-xl mt-4 text-gray-900 dark:text-white">
           Ultimate Tic-Tac-Toe
         </h1>
         <div className="absolute top-2 right-4">
@@ -124,7 +124,9 @@ function WinnerAnnouncement({ winner }) {
 function DarkToggle({ dark, setDark }) {
   return (
     <div>
-      <button onClick={() => setDark(!dark)}>{dark ? "☀️" : "🌙"}</button>
+      <button className="w-6 h-6" onClick={() => setDark(!dark)}>
+        <span>{dark ? "☀️" : "🌙"}</span>
+      </button>
     </div>
   );
 }
