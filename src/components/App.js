@@ -1,17 +1,19 @@
 import { useRef, useState } from "react";
 import "react-resizable/css/styles.css";
+import { ResizableBox } from "react-resizable";
 
 import { Game } from "./Game";
-import { usePointerKeys as useViewTurnKeys } from "../hooks/usePointerKeys";
 import { Icon } from "./Icon";
+import { DarkContext } from "../context/DarkContext";
+import { useViewTurnKeys } from "../hooks/useViewTurnKeys";
+import { useDarkMode } from "../hooks/useDarkMode";
 import {
   getAllowedBoard,
   getWinner,
   isValidClick,
 } from "../functions/gameFunctions";
-import { ResizableBox } from "react-resizable";
 
-function App() {
+export default function App() {
   // Game State
   const [turns, setTurns] = useState([]);
   const [viewTurn, setViewTurn] = useState(0);
@@ -31,25 +33,37 @@ function App() {
   }
 
   useViewTurnKeys(turns, setViewTurn);
-
-  // Use this to avoid strictMode warning when using ResizableBox
-  const gameRef = useRef(null);
+  const [dark, setDark] = useDarkMode();
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-2">
-      <h1 className="text-xl font-medium mt-4">Ultimate Tic-Tac-Toe</h1>
-      <GameBox
-        gameRef={gameRef}
-        turnsSlice={turnsSlice}
-        cellClick={cellClick}
-        allowedBoard={allowedBoard}
-      />
-      <PlayerTurn winner={winner} p1Turn={p1Turn} />
-    </div>
+    <DarkContext.Provider value={dark}>
+      <div className="min-h-screen bg-white dark:bg-gray-900 flex flex-col items-center space-y-2">
+        <h1 className="text-xl font-medium mt-4 text-gray-900 dark:text-white">
+          Ultimate Tic-Tac-Toe
+        </h1>
+        <div className="absolute top-2 right-4">
+          <DarkToggle dark={dark} setDark={setDark} />
+        </div>
+        <GameBox>
+          <Game
+            turns={turnsSlice}
+            cellClick={cellClick}
+            allowedBoard={allowedBoard}
+          />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <WinnerAnnouncement winner={winner} />
+          </div>
+        </GameBox>
+        <CurrentTurn winner={winner} p1Turn={p1Turn} />
+      </div>
+    </DarkContext.Provider>
   );
 }
 
-function GameBox({ gameRef, turnsSlice, cellClick, allowedBoard }) {
+function GameBox({ children }) {
+  // Use this to avoid strictMode warning when using ResizableBox
+  const gameRef = useRef(null);
+
   return (
     <ResizableBox
       height={300}
@@ -59,27 +73,23 @@ function GameBox({ gameRef, turnsSlice, cellClick, allowedBoard }) {
       draggableOpts={{
         nodeRef: gameRef,
       }}
-      className="p-2"
+      className="flex items-center justify-center relative p-2"
     >
       <div ref={gameRef} className="w-full h-full">
-        <Game
-          turns={turnsSlice}
-          cellClick={cellClick}
-          allowedBoard={allowedBoard}
-        />
+        {children}
       </div>
     </ResizableBox>
   );
 }
 
-function PlayerTurn({ p1Turn }) {
+function CurrentTurn({ p1Turn }) {
   return (
     <div className="flex flex-col items-center space-y-1">
-      <span className="text-sm font-bold tracking-wider text-gray-700 uppercase">
+      <span className="text-sm font-bold tracking-wider text-gray-700 dark:text-gray-100 uppercase">
         Current turn
       </span>
-      <div className="flex items-center justify-center rounded w-8 h-8 bg-gray-300">
-        <Icon className="w-1/2 h-1/2 text-gray-900" type={p1Turn ? "X" : "O"} />
+      <div className="flex items-center justify-center rounded w-8 h-8 bg-gray-200 dark:bg-gray-700">
+        <Icon className="w-1/2 h-1/2" type={p1Turn ? "X" : "O"} />
       </div>
     </div>
   );
@@ -91,10 +101,18 @@ function WinnerAnnouncement({ winner }) {
   }
 
   return (
-    <span className="font-medium text-gray-900">{`Player ${
-      winner === "X" ? "1" : "2"
-    } Wins!`}</span>
+    <div className="bg-gray-900 dark:bg-gray-200 px-4 py-2 rounded shadow-lg">
+      <span className="font-medium text-white dark:text-gray-900">{`Player ${
+        winner === "X" ? "1" : "2"
+      } Wins!`}</span>
+    </div>
   );
 }
 
-export default App;
+function DarkToggle({ dark, setDark }) {
+  return (
+    <div>
+      <button onClick={() => setDark(!dark)}>{dark ? "☀️" : "🌙"}</button>
+    </div>
+  );
+}

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export function usePointerKeys(turns, setPointer) {
+export function useViewTurnKeys(turns, setPointer) {
   useEffect(() => {
     function handleKeyUp({ key }) {
       switch (key) {

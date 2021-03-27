@@ -1,4 +1,6 @@
 import clsx from "clsx";
+
+import { useDarkContext } from "../hooks/useDarkContext";
 import {
   cellIconType,
   getBoardWinner,
@@ -28,15 +30,19 @@ export function Game({ turns, cellClick, allowedBoard }) {
 }
 
 function Board({ turns, cellClick, allowedBoard, boardIndex }) {
+  const dark = useDarkContext();
   const boardWinner = getBoardWinner(turns, boardIndex);
   const isValidBoard =
     !boardWinner && [true, boardIndex].includes(allowedBoard);
+  const invalidFilter = dark
+    ? "blur(1px) contrast(130%) grayscale(40%)"
+    : "blur(1px) contrast(80%) grayscale(30%)";
 
   return (
     <div
       style={{
         gap: "4%",
-        filter: !isValidBoard && "blur(1px) sepia(10%) grayscale(30%)",
+        filter: !isValidBoard && invalidFilter,
       }}
       className="grid grid-cols-3 rounded"
     >
@@ -51,8 +57,10 @@ function Board({ turns, cellClick, allowedBoard, boardIndex }) {
               onClick={() => cellClick(cellId)}
               isValid={isValidBoard}
               className={clsx(
-                boardWinner === "X" && "bg-red-300",
-                boardWinner === "O" && "bg-blue-300"
+                boardWinner === "X" &&
+                  "bg-red-300 bg-opacity-70 dark:bg-red-600 dark:bg-opacity-30",
+                boardWinner === "O" &&
+                  "bg-blue-300 bg-opacity-70 dark:bg-blue-600 dark:bg-opacity-30"
               )}
             >
               <Icon
@@ -70,7 +78,7 @@ function Cell({ isValid, className, children, ...props }) {
   return (
     <div
       className={clsx(
-        "relative flex items-center justify-center rounded w-full h-full bg-gray-200 m-px",
+        "relative flex items-center justify-center rounded w-full h-full bg-gray-200 dark:bg-gray-700 m-px",
         isValid && "cursor-pointer",
         className
       )}
