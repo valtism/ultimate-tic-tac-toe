@@ -3,8 +3,9 @@
 Todo:
 
 - [x] Resizable board
-- [ ] Player colours
-- [ ] Small / mobile support
-- [ ] Dark mode
+- [x] Player colours
+- [x] Small / mobile support
+- [x] Dark mode
 - [ ] Animated marks
+- [ ] Better font
 - [ ] Multiplayer
