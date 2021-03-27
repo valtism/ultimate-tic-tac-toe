@@ -70,7 +70,7 @@ function GameBox({ children }) {
   );
 
   return (
-    <>
+    <div className="relative">
       {isMobile ? (
         <div style={{ width: "90vw", height: "90vw" }}>{children}</div>
       ) : (
@@ -83,14 +83,14 @@ function GameBox({ children }) {
             nodeRef: gameRef,
           }}
           onResizeStart={() => console.log("hurr")}
-          className="flex items-center justify-center relative p-2"
+          className="flex items-center justify-center p-2"
         >
           <div ref={gameRef} className="w-full h-full">
             {children}
           </div>
         </ResizableBox>
       )}
-    </>
+    </div>
   );
 }
 
