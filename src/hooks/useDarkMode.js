@@ -9,12 +9,11 @@ export function useDarkMode() {
   const enabled = userEnabled === undefined ? prefersDarkMode : userEnabled;
 
   useEffect(() => {
-    const className = "dark";
-    const element = window.document.body;
+    const html = document.documentElement;
     if (enabled) {
-      element.classList.add(className);
+      html.classList.add("dark");
     } else {
-      element.classList.remove(className);
+      html.classList.remove("dark");
     }
   }, [enabled]);
 

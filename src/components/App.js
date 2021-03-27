@@ -37,7 +37,7 @@ export default function App() {
 
   return (
     <DarkContext.Provider value={dark}>
-      <div className="min-h-screen bg-white dark:bg-gray-900 flex flex-col items-center space-y-2">
+      <div className="bg-white dark:bg-gray-900 flex flex-col items-center space-y-2">
         <h1 className="text-xl font-medium mt-4 text-gray-900 dark:text-white">
           Ultimate Tic-Tac-Toe
         </h1>
@@ -64,21 +64,33 @@ function GameBox({ children }) {
   // Use this to avoid strictMode warning when using ResizableBox
   const gameRef = useRef(null);
 
+  // Disable resizable box for mobile. Unneeded and had a bug preventing cell clicks
+  const isMobile = Boolean(
+    navigator.userAgent.match(/Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i)
+  );
+
   return (
-    <ResizableBox
-      height={300}
-      width={300}
-      minConstraints={[200, 200]}
-      lockAspectRatio
-      draggableOpts={{
-        nodeRef: gameRef,
-      }}
-      className="flex items-center justify-center relative p-2"
-    >
-      <div ref={gameRef} className="w-full h-full">
-        {children}
-      </div>
-    </ResizableBox>
+    <>
+      {isMobile ? (
+        <div style={{ width: "90vw", height: "90vw" }}>{children}</div>
+      ) : (
+        <ResizableBox
+          height={300}
+          width={300}
+          minConstraints={[200, 200]}
+          lockAspectRatio
+          draggableOpts={{
+            nodeRef: gameRef,
+          }}
+          onResizeStart={() => console.log("hurr")}
+          className="flex items-center justify-center relative p-2"
+        >
+          <div ref={gameRef} className="w-full h-full">
+            {children}
+          </div>
+        </ResizableBox>
+      )}
+    </>
   );
 }
 
