@@ -15,7 +15,12 @@ export function isValidClick(pointer, turns, cellId, allowedBoard) {
     return false;
   }
 
-  // Someone has won
+  // Board has a winner
+  if (!!getBoardWinner(turns, boardClick)) {
+    return false;
+  }
+
+  // A player has won
   if (getWinner(turns)) {
     return false;
   }

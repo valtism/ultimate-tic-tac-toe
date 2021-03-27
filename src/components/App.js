@@ -18,7 +18,7 @@ function App() {
 
   // Derived Game State
   const turnsSlice = turns.slice(0, viewTurn);
-  const p1Turn = turnsSlice.length % 2 === 0;
+  const p1Turn = turns.length % 2 === 0;
   const allowedBoard = getAllowedBoard(turnsSlice);
   const winner = getWinner(turnsSlice);
 
@@ -36,46 +36,64 @@ function App() {
   const gameRef = useRef(null);
 
   return (
-    <div className="flex justify-center mt-4">
-      <ResizableBox
-        height={300}
-        width={300}
-        minConstraints={[200, 200]}
-        lockAspectRatio
-        draggableOpts={{ nodeRef: gameRef }}
-        className="p-2"
-      >
-        <div ref={gameRef} className="w-full h-full">
-          <Game
-            turns={turnsSlice}
-            cellClick={cellClick}
-            allowedBoard={allowedBoard}
-          />
-        </div>
-      </ResizableBox>
-      <Sidebar winner={winner} p1Turn={p1Turn} />
+    <div className="flex flex-col items-center justify-center space-y-2">
+      <h1 className="text-xl font-medium mt-4">Ultimate Tic-Tac-Toe</h1>
+      <GameBox
+        gameRef={gameRef}
+        turnsSlice={turnsSlice}
+        cellClick={cellClick}
+        allowedBoard={allowedBoard}
+      />
+      <PlayerTurn winner={winner} p1Turn={p1Turn} />
     </div>
   );
 }
 
-function Sidebar({ winner, p1Turn }) {
+function GameBox({ gameRef, turnsSlice, cellClick, allowedBoard }) {
   return (
-    <div className="w-32 ml-4 flex flex-col items-center">
-      {winner ? (
-        <span className="font-medium text-gray-900">{`Player ${
-          winner === "X" ? "1" : "2"
-        } Wins!`}</span>
-      ) : (
-        <>
-          <span className="font-medium text-gray-900">{`Player ${
-            p1Turn ? "1" : "2"
-          }`}</span>
-          <div className="flex items-center justify-center rounded w-8 h-8 m-2 bg-gray-300">
-            <Icon className="w-6 h-6 text-gray-900" type={p1Turn ? "X" : "O"} />
-          </div>
-        </>
-      )}
+    <ResizableBox
+      height={300}
+      width={300}
+      minConstraints={[200, 200]}
+      lockAspectRatio
+      draggableOpts={{
+        nodeRef: gameRef,
+      }}
+      className="p-2"
+    >
+      <div ref={gameRef} className="w-full h-full">
+        <Game
+          turns={turnsSlice}
+          cellClick={cellClick}
+          allowedBoard={allowedBoard}
+        />
+      </div>
+    </ResizableBox>
+  );
+}
+
+function PlayerTurn({ p1Turn }) {
+  return (
+    <div className="flex flex-col items-center space-y-1">
+      <span className="text-sm font-bold tracking-wider text-gray-700 uppercase">
+        Current turn
+      </span>
+      <div className="flex items-center justify-center rounded w-8 h-8 bg-gray-300">
+        <Icon className="w-1/2 h-1/2 text-gray-900" type={p1Turn ? "X" : "O"} />
+      </div>
     </div>
+  );
+}
+
+function WinnerAnnouncement({ winner }) {
+  if (!winner) {
+    return null;
+  }
+
+  return (
+    <span className="font-medium text-gray-900">{`Player ${
+      winner === "X" ? "1" : "2"
+    } Wins!`}</span>
   );
 }
 

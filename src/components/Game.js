@@ -9,10 +9,8 @@ import { Icon } from "./Icon";
 export function Game({ turns, cellClick, allowedBoard }) {
   return (
     <div
-      className={clsx(
-        "h-full relative grid grid-cols-3 rounded gap-2",
-        allowedBoard === true && "ring-8 ring-yellow-300 ring-opacity-50"
-      )}
+      style={{ gap: "4%" }}
+      className="h-full relative grid grid-cols-3 rounded"
     >
       {Array(9)
         .fill()
@@ -31,12 +29,16 @@ export function Game({ turns, cellClick, allowedBoard }) {
 
 function Board({ turns, cellClick, allowedBoard, boardIndex }) {
   const boardWinner = getBoardWinner(turns, boardIndex);
+  const isValidBoard =
+    !boardWinner && [true, boardIndex].includes(allowedBoard);
+
   return (
     <div
-      className={clsx(
-        "relative grid grid-cols-3 rounded gap-1",
-        allowedBoard === boardIndex && "ring-8 ring-yellow-300 ring-opacity-50"
-      )}
+      style={{
+        gap: "4%",
+        filter: !isValidBoard && "blur(1px) sepia(10%) grayscale(30%)",
+      }}
+      className="grid grid-cols-3 rounded"
     >
       {Array(9)
         .fill()
@@ -47,7 +49,7 @@ function Board({ turns, cellClick, allowedBoard, boardIndex }) {
             <Cell
               key={cellIndex}
               onClick={() => cellClick(cellId)}
-              style={{ filter: boardWinner && "blur(2px)" }}
+              isValid={isValidBoard}
               className={clsx(
                 boardWinner === "X" && "bg-red-300",
                 boardWinner === "O" && "bg-blue-300"
@@ -55,26 +57,21 @@ function Board({ turns, cellClick, allowedBoard, boardIndex }) {
             >
               <Icon
                 type={iconType}
-                className="absolute w-10/12 h-10/12 text-gray-900"
+                className="absolute w-1/2 h-1/2 text-gray-900"
               />
             </Cell>
           );
         })}
-      {/* {boardWinner && (
-        <Icon
-          type={boardWinner}
-          className="absolute w-full h-full rounded text-gray-900 bg-gray-900 bg-opacity-30"
-        />
-      )} */}
     </div>
   );
 }
 
-function Cell({ children, className, ...props }) {
+function Cell({ isValid, className, children, ...props }) {
   return (
     <div
       className={clsx(
-        "relative flex items-center justify-center rounded w-full h-full bg-gray-200",
+        "relative flex items-center justify-center rounded w-full h-full bg-gray-200 m-px",
+        isValid && "cursor-pointer",
         className
       )}
       {...props}
