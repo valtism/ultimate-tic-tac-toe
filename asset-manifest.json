@@ -1,25 +1,26 @@
 {
   "files": {
-    "main.css": "/ultimate-tic-tac-toe/static/css/main.7e5ca864.chunk.css",
-    "main.js": "/ultimate-tic-tac-toe/static/js/main.4022d9ca.chunk.js",
-    "main.js.map": "/ultimate-tic-tac-toe/static/js/main.4022d9ca.chunk.js.map",
+    "main.css": "/ultimate-tic-tac-toe/static/css/main.c23d0eeb.chunk.css",
+    "main.js": "/ultimate-tic-tac-toe/static/js/main.4bdb44b3.chunk.js",
+    "main.js.map": "/ultimate-tic-tac-toe/static/js/main.4bdb44b3.chunk.js.map",
     "runtime-main.js": "/ultimate-tic-tac-toe/static/js/runtime-main.fe5a294f.js",
     "runtime-main.js.map": "/ultimate-tic-tac-toe/static/js/runtime-main.fe5a294f.js.map",
     "static/css/2.028e56f8.chunk.css": "/ultimate-tic-tac-toe/static/css/2.028e56f8.chunk.css",
-    "static/js/2.66051394.chunk.js": "/ultimate-tic-tac-toe/static/js/2.66051394.chunk.js",
-    "static/js/2.66051394.chunk.js.map": "/ultimate-tic-tac-toe/static/js/2.66051394.chunk.js.map",
+    "static/js/2.00ffc027.chunk.js": "/ultimate-tic-tac-toe/static/js/2.00ffc027.chunk.js",
+    "static/js/2.00ffc027.chunk.js.map": "/ultimate-tic-tac-toe/static/js/2.00ffc027.chunk.js.map",
     "index.html": "/ultimate-tic-tac-toe/index.html",
     "static/css/2.028e56f8.chunk.css.map": "/ultimate-tic-tac-toe/static/css/2.028e56f8.chunk.css.map",
-    "static/css/main.7e5ca864.chunk.css.map": "/ultimate-tic-tac-toe/static/css/main.7e5ca864.chunk.css.map",
-    "static/js/2.66051394.chunk.js.LICENSE.txt": "/ultimate-tic-tac-toe/static/js/2.66051394.chunk.js.LICENSE.txt",
+    "static/css/main.c23d0eeb.chunk.css.map": "/ultimate-tic-tac-toe/static/css/main.c23d0eeb.chunk.css.map",
+    "static/js/2.00ffc027.chunk.js.LICENSE.txt": "/ultimate-tic-tac-toe/static/js/2.00ffc027.chunk.js.LICENSE.txt",
     "static/media/O.6b20fc43.svg": "/ultimate-tic-tac-toe/static/media/O.6b20fc43.svg",
-    "static/media/X.78c7f3d6.svg": "/ultimate-tic-tac-toe/static/media/X.78c7f3d6.svg"
+    "static/media/X.78c7f3d6.svg": "/ultimate-tic-tac-toe/static/media/X.78c7f3d6.svg",
+    "static/media/index.css": "/ultimate-tic-tac-toe/static/media/YoungSerif-Regular.3a342673.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.fe5a294f.js",
     "static/css/2.028e56f8.chunk.css",
-    "static/js/2.66051394.chunk.js",
-    "static/css/main.7e5ca864.chunk.css",
-    "static/js/main.4022d9ca.chunk.js"
+    "static/js/2.00ffc027.chunk.js",
+    "static/css/main.c23d0eeb.chunk.css",
+    "static/js/main.4bdb44b3.chunk.js"
   ]
 }
