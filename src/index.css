@@ -3,3 +3,7 @@
   src: local("YoungSerif"),
     url(./fonts/YoungSerif-Regular.woff2) format("woff2");
 }
+
+.dark .react-resizable-handle {
+  filter: invert(1);
+}

@@ -6,8 +6,10 @@ Todo:
 - [x] Player colours
 - [x] Small / mobile support
 - [x] Dark mode
+- [x] Better font
+- [x] Dark mode resize handle
 - [ ] Animated marks
 - [ ] Play instructions
 - [ ] Arrow keys
-- [x] Better font
 - [ ] Multiplayer
+- [ ] AI bots
