@@ -2,21 +2,21 @@ import { useEffect } from "react";
 
 export function useViewTurnKeys(turns, setPointer) {
   useEffect(() => {
-    function handleKeyUp({ key }) {
+    function handleKeyDown({ key }) {
       switch (key) {
-        case "ArrowLeft":
+        case "k":
           return setPointer((pointer) => Math.max(pointer - 1, 0));
-        case "ArrowRight":
+        case "j":
           return setPointer((pointer) => Math.min(pointer + 1, turns.length));
-        case "ArrowUp":
+        case "K":
           return setPointer(0);
-        case "ArrowDown":
+        case "J":
           return setPointer(turns.length);
         default:
           return;
       }
     }
-    window.addEventListener("keydown", handleKeyUp);
-    return () => window.removeEventListener("keydown", handleKeyUp);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [setPointer, turns.length]);
 }

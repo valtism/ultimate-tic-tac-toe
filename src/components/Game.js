@@ -54,7 +54,19 @@ function Board({ turns, cellClick, allowedBoard, boardIndex }) {
           return (
             <Cell
               key={cellIndex}
+              id={cellId}
               onClick={() => cellClick(cellId)}
+              onKeyDown={({ key }) => {
+                switch (key) {
+                  case "ArrowUp":
+                  case "ArrowRight":
+                  case "ArrowDown":
+                  case "ArrowLeft":
+                    return handleGridNavigation(key, cellId);
+                  default:
+                    return;
+                }
+              }}
               isValid={isValidBoard}
               className={clsx(
                 boardWinner === "X" &&
@@ -76,15 +88,63 @@ function Board({ turns, cellClick, allowedBoard, boardIndex }) {
 
 function Cell({ isValid, className, children, ...props }) {
   return (
-    <div
+    <button
       className={clsx(
-        "relative flex items-center justify-center rounded w-full h-full bg-gray-200 dark:bg-gray-700 m-px",
-        isValid && "cursor-pointer",
+        "relative flex items-center justify-center rounded w-full h-full",
+        "bg-gray-200 dark:bg-gray-700 m-px",
+        "focus:outline-none focus:ring",
+        !isValid && "focus:ring-gray-500 focus:ring-opacity-50",
+        !isValid && "cursor-default",
         className
       )}
       {...props}
     >
       {children}
-    </div>
+    </button>
   );
+}
+
+function handleGridNavigation(key, cellId) {
+  const nextCell = getNavigatedCellId(key, cellId);
+  document.getElementById(nextCell).focus();
+}
+
+function getNavigatedCellId(key, cellId) {
+  const [boardIndex, cellIndex] = cellId.split(",").map(Number);
+  switch (key) {
+    case "ArrowUp":
+      if ([3, 4, 5, 6, 7, 8].includes(cellIndex)) {
+        return `${boardIndex},${cellIndex - 3}`;
+      } else if ([0, 1, 2].includes(boardIndex)) {
+        return cellId;
+      } else {
+        return `${boardIndex - 3},${cellIndex + 6}`;
+      }
+    case "ArrowRight":
+      if ([0, 1, 3, 4, 6, 7].includes(cellIndex)) {
+        return `${boardIndex},${cellIndex + 1}`;
+      } else if ([2, 5, 8].includes(boardIndex)) {
+        return cellId;
+      } else {
+        return `${boardIndex + 1},${cellIndex - 2}`;
+      }
+    case "ArrowDown":
+      if ([0, 1, 2, 3, 4, 5].includes(cellIndex)) {
+        return `${boardIndex},${cellIndex + 3}`;
+      } else if ([6, 7, 8].includes(boardIndex)) {
+        return cellId;
+      } else {
+        return `${boardIndex + 3},${cellIndex - 6}`;
+      }
+    case "ArrowLeft":
+      if ([1, 2, 4, 5, 7, 8].includes(cellIndex)) {
+        return `${boardIndex},${cellIndex - 1}`;
+      } else if ([0, 3, 6].includes(boardIndex)) {
+        return cellId;
+      } else {
+        return `${boardIndex - 1},${cellIndex + 2}`;
+      }
+    default:
+      return cellId;
+  }
 }

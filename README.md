@@ -9,6 +9,7 @@ Todo:
 - [x] Better font
 - [x] Dark mode resize handle
 - [x] Animated marks
+- [x] Arrow key grid navigation
 - [ ] Play instructions
 - [ ] Arrow keys
 - [ ] Multiplayer
