@@ -1,6 +1,7 @@
+import clsx from "clsx";
+
 import { ReactComponent as X } from "../images/X.svg";
 import { ReactComponent as O } from "../images/O.svg";
-import clsx from "clsx";
 
 export function Icon({ type, className, ...props }) {
   switch (type) {

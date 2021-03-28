@@ -65,7 +65,7 @@ function Board({ turns, cellClick, allowedBoard, boardIndex }) {
             >
               <Icon
                 type={iconType}
-                className="absolute w-1/2 h-1/2 text-gray-900"
+                className={`animate-${iconType} absolute w-1/2 h-1/2 text-gray-900`}
               />
             </Cell>
           );

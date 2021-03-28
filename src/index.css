@@ -7,3 +7,31 @@
 .dark .react-resizable-handle {
   filter: invert(1);
 }
+
+/*
+  Animations for marks with calculated stroke-dash
+  See: https://css-tricks.com/svg-line-animation-works/
+*/
+.animate-O path {
+  stroke-dasharray: 63;
+  stroke-dashoffset: 63;
+  animation: move 0.3s linear;
+  animation-fill-mode: forwards;
+}
+
+.animate-X path {
+  stroke-dasharray: 29;
+  stroke-dashoffset: 29;
+  animation: move 0.15s linear;
+  animation-fill-mode: forwards;
+}
+
+.animate-X path:last-of-type {
+  animation-delay: 0.15s;
+}
+
+@keyframes move {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
