@@ -4,9 +4,11 @@ import { ResizableBox } from "react-resizable";
 
 import { Game } from "./Game";
 import { Icon } from "./Icon";
+import { ArrowControls } from "./ArrowControls";
 import { DarkContext } from "../context/DarkContext";
 import { useViewTurnKeys } from "../hooks/useViewTurnKeys";
 import { useDarkMode } from "../hooks/useDarkMode";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import {
   getAllowedBoard,
   getWinner,
@@ -32,6 +34,14 @@ export default function App() {
     }
   }
 
+  const incrementViewTurn = () => {
+    setViewTurn((vt) => Math.min(vt + 1, turns.length));
+  };
+
+  const decrementViewTurn = () => {
+    setViewTurn((vt) => Math.max(0, vt - 1));
+  };
+
   useViewTurnKeys(turns, setViewTurn);
   const [dark, setDark] = useDarkMode();
 
@@ -54,13 +64,21 @@ export default function App() {
             <WinnerAnnouncement winner={winner} />
           </div>
         </GameBox>
-        <CurrentTurn winner={winner} p1Turn={p1Turn} />
+        <div className="flex space-x-4">
+          <CurrentTurn winner={winner} p1Turn={p1Turn} />
+          <ArrowControls
+            onLeftClick={decrementViewTurn}
+            onRightClick={incrementViewTurn}
+          />
+        </div>
       </div>
     </DarkContext.Provider>
   );
 }
 
 function GameBox({ children }) {
+  const [defaultSize, setDefaultSize] = useLocalStorage("game-size", 400);
+
   // Use this to avoid strictMode warning when using ResizableBox
   const gameRef = useRef(null);
 
@@ -75,14 +93,14 @@ function GameBox({ children }) {
         <div style={{ width: "90vw", height: "90vw" }}>{children}</div>
       ) : (
         <ResizableBox
-          height={300}
-          width={300}
+          height={defaultSize}
+          width={defaultSize}
           minConstraints={[200, 200]}
           lockAspectRatio
           draggableOpts={{
             nodeRef: gameRef,
           }}
-          onResizeStart={() => console.log("hurr")}
+          onResizeStop={(e, data) => setDefaultSize(data.size.width)}
           className="flex items-center justify-center p-2"
         >
           <div ref={gameRef} className="w-full h-full">
@@ -124,7 +142,10 @@ function WinnerAnnouncement({ winner }) {
 function DarkToggle({ dark, setDark }) {
   return (
     <div>
-      <button className="w-6 h-6" onClick={() => setDark(!dark)}>
+      <button
+        className="w-6 h-6 rounded-full focus:outline-none focus:ring"
+        onClick={() => setDark(!dark)}
+      >
         <span>{dark ? "☀️" : "🌙"}</span>
       </button>
     </div>
