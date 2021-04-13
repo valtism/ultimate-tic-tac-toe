@@ -10,7 +10,8 @@ Todo:
 - [x] Dark mode resize handle
 - [x] Animated marks
 - [x] Arrow key grid navigation
-- [ ] Play instructions
 - [ ] Arrow keys
+- [ ] Undo moves (maybe with timer)
+- [ ] Play instructions
 - [ ] Multiplayer
 - [ ] AI bots

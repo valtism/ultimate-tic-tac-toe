@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "react-resizable/css/styles.css";
 import { ResizableBox } from "react-resizable";
 
@@ -47,13 +47,13 @@ export default function App() {
 
   return (
     <DarkContext.Provider value={dark}>
-      <div className="bg-white dark:bg-gray-900 flex flex-col items-center space-y-2">
+      <div className="absolute top-4 right-4">
+        <DarkToggle dark={dark} setDark={setDark} />
+      </div>
+      <div className="bg-white dark:bg-gray-900 flex flex-col items-center space-y-6">
         <h1 className="font-display text-xl mt-4 text-gray-900 dark:text-white">
           Ultimate Tic-Tac-Toe
         </h1>
-        <div className="absolute top-2 right-4">
-          <DarkToggle dark={dark} setDark={setDark} />
-        </div>
         <GameBox>
           <Game
             turns={turnsSlice}
@@ -64,9 +64,11 @@ export default function App() {
             <WinnerAnnouncement winner={winner} />
           </div>
         </GameBox>
-        <div className="flex space-x-4">
+        <div className="flex space-x-12">
           <CurrentTurn winner={winner} p1Turn={p1Turn} />
           <ArrowControls
+            isLeftActive={viewTurn > 0}
+            isRightActive={viewTurn < turns.length}
             onLeftClick={decrementViewTurn}
             onRightClick={incrementViewTurn}
           />
@@ -114,13 +116,13 @@ function GameBox({ children }) {
 
 function CurrentTurn({ p1Turn }) {
   return (
-    <div className="flex flex-col items-center space-y-1">
-      <span className="text-sm font-bold tracking-wider text-gray-700 dark:text-gray-100 uppercase">
-        Current turn
-      </span>
-      <div className="flex items-center justify-center rounded w-8 h-8 bg-gray-200 dark:bg-gray-700">
+    <div className="flex items-center space-x-1 bg-gray-100 dark:bg-gray-700 rounded px-2 pr-4">
+      <div className="flex items-center justify-center w-8 h-8">
         <Icon className="w-1/2 h-1/2" type={p1Turn ? "X" : "O"} />
       </div>
+      <span className="text-xs font-semibold tracking-wider uppercase text-gray-600 dark:text-gray-100">
+        To move
+      </span>
     </div>
   );
 }

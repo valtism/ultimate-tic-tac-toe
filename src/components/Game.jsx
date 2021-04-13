@@ -1,3 +1,4 @@
+import React from "react";
 import clsx from "clsx";
 
 import { useDarkContext } from "../hooks/useDarkContext";
@@ -7,6 +8,7 @@ import {
   getCellId,
 } from "../functions/gameFunctions";
 import { Icon } from "./Icon";
+import { Cell } from "./Cell";
 
 export function Game({ turns, cellClick, allowedBoard }) {
   return (
@@ -68,11 +70,12 @@ function Board({ turns, cellClick, allowedBoard, boardIndex }) {
                 }
               }}
               isValid={isValidBoard}
+              disabled={!isValidBoard}
               className={clsx(
                 boardWinner === "X" &&
-                  "bg-red-300 bg-opacity-70 dark:bg-red-600 dark:bg-opacity-30",
+                  "from-red-300 to-red-200 dark:from-red-600 dark:to-red-300",
                 boardWinner === "O" &&
-                  "bg-blue-300 bg-opacity-70 dark:bg-blue-600 dark:bg-opacity-30"
+                  "from-blue-300 to-blue-200 dark:bg-blue-600 dark:bg-opacity-30"
               )}
             >
               <Icon
@@ -83,24 +86,6 @@ function Board({ turns, cellClick, allowedBoard, boardIndex }) {
           );
         })}
     </div>
-  );
-}
-
-function Cell({ isValid, className, children, ...props }) {
-  return (
-    <button
-      className={clsx(
-        "relative flex items-center justify-center rounded w-full h-full",
-        "bg-gray-200 dark:bg-gray-700 m-px",
-        "focus:outline-none focus:ring",
-        !isValid && "focus:ring-gray-500 focus:ring-opacity-50",
-        !isValid && "cursor-default",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </button>
   );
 }
 

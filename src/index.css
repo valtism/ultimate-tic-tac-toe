@@ -1,3 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  @apply bg-white;
+}
+
+html.dark {
+  @apply bg-gray-900;
+}
+
 @font-face {
   font-family: "YoungSerif";
   src: local("YoungSerif"),
