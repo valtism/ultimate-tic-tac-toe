@@ -1,5 +1,7 @@
 # A game of [Ultimate Tic Tac Toe](https://mathwithbaddrawings.com/2013/06/16/ultimate-tic-tac-toe/)
 
+<img width="554" alt="Game board" src="https://user-images.githubusercontent.com/1286001/126052064-4dd1deb6-4ae4-4db8-98f4-c3f74f00d5fd.png">
+
 Todo:
 
 - [x] Resizable board
