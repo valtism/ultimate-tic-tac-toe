@@ -12,10 +12,7 @@ import { Cell } from "./Cell";
 
 export function Game({ turns, cellClick, allowedBoard }) {
   return (
-    <div
-      style={{ gap: "4%" }}
-      className="h-full relative grid grid-cols-3 rounded"
-    >
+    <div className="h-full relative grid grid-cols-3 rounded gap-[4%]">
       {Array(9)
         .fill()
         .map((_, boardIndex) => (
@@ -42,11 +39,11 @@ function Board({ turns, cellClick, allowedBoard, boardIndex }) {
 
   return (
     <div
-      style={{
-        gap: "4%",
-        filter: !isValidBoard && invalidFilter,
-      }}
-      className="grid grid-cols-3 rounded"
+      className={clsx(
+        "grid grid-cols-3 rounded gap-[4%]",
+        !isValidBoard &&
+          "filter blur-[1px] contrast-75 dark:contrast-125 grayscale-[30%] dark:grayscale-[40%]"
+      )}
     >
       {Array(9)
         .fill()
