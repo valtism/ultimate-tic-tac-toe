@@ -2,7 +2,7 @@
 
 <img width="554" alt="Game board" src="https://user-images.githubusercontent.com/1286001/126052064-4dd1deb6-4ae4-4db8-98f4-c3f74f00d5fd.png">
 
-Todos:
+Todo:
 
 - [x] Resizable board
 - [x] Player colours
